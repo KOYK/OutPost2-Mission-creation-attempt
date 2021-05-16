@@ -1,0 +1,108 @@
+{
+    "version": "2.0.0",
+    "echoCommand": true,
+    "tasks": [
+        {
+            "label": "Build Release",
+            "type": "process",
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "windows": {
+                "command": "cmd",
+                "args": [
+                    "/C %vcvars% && nmake release",
+                ]
+            },
+            "linux": {
+                "command": "${env:OP2_WINEPREFIX}/vsvars.sh",
+                "args": [
+                    "cd ${env:OP2_LEVELS}\\LevelTemplate-Blank-Comments && nmake release"
+                ]
+            }
+        },
+        {
+            "label": "Build Debug",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile",
+            "windows": {
+                "command": "cmd",
+                "args": [
+                    "/C %vcvars% && nmake debug",
+                ]
+            }
+            // Debug does not work using Wine :(
+        },
+        {
+            "label": "Clean",
+            "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile",
+            "windows": {
+                "command": "cmd",
+                "args": [
+                    "/C %vcvars% && nmake clean",
+                ]
+            },
+            "linux": {
+                "command": "${env:OP2_WINEPREFIX}/vsvars.sh",
+                "args": [
+                    "cd ${env:OP2_LEVELS}\\LevelTemplate-Blank-Comments && nmake clean"
+                ]
+            }
+        },
+        {
+            "label": "Open MSVC Console",
+            "type": "process",
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "windows": {
+                "command": "cmd",
+                "args": [
+                    "/k",
+                    "%vcvars%"
+                ]
+            },
+            "linux": {
+                "command": "${env:OP2_WINEPREFIX}/vsvars.sh",
+                "args": [
+                    "cmd"
+                ]
+            }
+        },
+        {
+            "label": "Launch Outpost 2",
+            "type": "process",
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "windows": {
+                "command": "${workspaceFolder}/../../Game/Outpost2.exe",
+                "args": []
+            },
+            "linux": {
+                "command": "wine",
+                "args": [
+                    "${workspaceFolder}/../../Game/Outpost2.exe"
+                ],
+                "options": {
+                    "env": {
+                        "WINEPREFIX": "${env:OP2_WINEPREFIX}",
+                        "WINEARCH": "win32"
+                    }
+                }
+            }
+        }
+    ],
+    "options": {
+        "env": {
+            "vcvars": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\VC\\Auxiliary\\Build\\vcvarsall.bat\" x86",
+        },
+        "cwd": "${workspaceRoot}"
+    }
+}

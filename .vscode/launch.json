@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Debug Outpost 2",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../../Game",
+            "externalConsole": true,
+            "windows": {
+                "preLaunchTask": "Build Debug",
+                "program": "${workspaceFolder}/../../Game/Outpost2.exe",
+                "args": [],
+                "environment": [],
+            }
+            // Debug does not work using Wine :(
+        }
+    ]
+}
